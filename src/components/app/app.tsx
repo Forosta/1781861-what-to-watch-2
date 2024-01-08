@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import AddReview from '../../pages/add-review/add-review';
 import MainPage from '../../pages/main-page/main-page';
 import MoviePage from '../../pages/movie-page/movie-page';
@@ -9,12 +9,14 @@ import Sign from '../../pages/sign-in/sign-in';
 import PrivateRoute from '../private-route.tsx/private-route';
 import { AppRoute } from '../../enums/AppRoute';
 import { useAppSelector } from '../../hook/store';
+import HistoryRouter from '../history-route/history-route';
+import browserHistory from '../../browser-history';
 
 
 export default function App(): JSX.Element {
   const films = useAppSelector((state) => state.films);
   return (
-    <BrowserRouter>
+    <HistoryRouter history={browserHistory}>
       <Routes>
         <Route path={AppRoute.Main}>
           <Route index element={<MainPage />} />
@@ -29,6 +31,6 @@ export default function App(): JSX.Element {
           <Route path='*' element={<Page404 />} />
         </Route>
       </Routes>
-    </BrowserRouter>
+    </HistoryRouter>
   );
 }
